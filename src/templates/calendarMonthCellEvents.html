@@ -7,8 +7,8 @@
     ng-class="'event-' + event.type + ' ' + event.cssClass"
     ng-mouseenter="vm.highlightEvent(event, true)"
     ng-mouseleave="vm.highlightEvent(event, false)"
-    tooltip-append-to-body="true"
-    tooltip-html-unsafe="{{ (event.startsAt | calendarDate:'time':true) + (vm.calendarConfig.displayEventEndTimes && event.endsAt ? ' - ' + (event.endsAt | calendarDate:'time':true) : '') + ' - ' + event.title }}"
+    data-container="body" data-html="true"
+    data-title="{{ (event.startsAt | calendarDate:'time':true) + (vm.calendarConfig.displayEventEndTimes && event.endsAt ? ' - ' + (event.endsAt | calendarDate:'time':true) : '') + ' - ' + event.title }}"
     mwl-draggable="event.draggable === true"
     drop-data="{event: event}">
   </a>
