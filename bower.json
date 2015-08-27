@@ -28,6 +28,9 @@
   ],
   "dependencies": {
     "angular": ">=1.3.0 <1.5",
+    "angular-animate": ">=1.3.0 <1.5",
+    "angular-bootstrap": "*",
+    "angular-touch": ">=1.3.0 <1.5",
     "moment": "~2.10.0",
     "bootstrap": "~3.3.4"
   },
