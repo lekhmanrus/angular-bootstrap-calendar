@@ -573,7 +573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      });
 	      var ret = '';
-	      if (events) {
+	      if (events.length) {
 	        ret += '<ol>';
 	        for (var i in events) {
 	          if (events[i]) {
