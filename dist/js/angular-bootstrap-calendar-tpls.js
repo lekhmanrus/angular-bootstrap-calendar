@@ -557,14 +557,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    };
 
-	    vm.getHTMLListEvents = function() {
-	      var events = vm.events.map(function(e) {
-	        var ret = $filter('calendarDate')(e.startsAt, 'time', true);
-	        if (calendarConfig.displayEventEndTimes && e.endsAt) {
-	          ret += ' - ' + $filter('calendarDate')(e.endsAt, 'time', true);
+	    vm.getHTMLListEvents = function(date) {
+	      var events = [ ];
+	      vm.view.forEach(function(day) {
+	        if (moment(date).startOf('day').isSame(day.date)) {
+	          day.events.map(function(e) {
+	            var ret = $filter('calendarDate')(e.startsAt, 'time', true);
+	            if (calendarConfig.displayEventEndTimes && e.endsAt) {
+	              ret += ' - ' + $filter('calendarDate')(e.endsAt, 'time', true);
+	            }
+	            ret += ' - ' + e.title;
+	            events.push(ret);
+	            return ret;
+	          });
 	        }
-	        ret += ' - ' + e.title;
-	        return ret;
 	      });
 	      var ret = '';
 	      if (events) {

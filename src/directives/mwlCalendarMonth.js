@@ -55,7 +55,6 @@ angular
       vm.view.forEach(function(day) {
         if (moment(date).startOf('day').isSame(day.date)) {
           day.events.map(function(e) {
-            if (moment(e.).startOf('day').isSame(day.date))
             var ret = $filter('calendarDate')(e.startsAt, 'time', true);
             if (calendarConfig.displayEventEndTimes && e.endsAt) {
               ret += ' - ' + $filter('calendarDate')(e.endsAt, 'time', true);
