@@ -4,7 +4,7 @@ var angular = require('angular');
 
 angular
   .module('mwl.calendar')
-  .controller('MwlCalendarMonthCtrl', function($scope, $filter, moment, calendarDate, calendarHelper, calendarConfig) {
+  .controller('MwlCalendarMonthCtrl', function($scope, $filter, moment, calendarHelper, calendarConfig) {
 
     var vm = this;
     vm.calendarConfig = calendarConfig;

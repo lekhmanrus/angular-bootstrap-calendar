@@ -481,7 +481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	angular
 	  .module('mwl.calendar')
-	  .controller('MwlCalendarMonthCtrl', ["$scope", "$filter", "moment", "calendarDate", "calendarHelper", "calendarConfig", function($scope, $filter, moment, calendarDate, calendarHelper, calendarConfig) {
+	  .controller('MwlCalendarMonthCtrl', ["$scope", "$filter", "moment", "calendarHelper", "calendarConfig", function($scope, $filter, moment, calendarHelper, calendarConfig) {
 
 	    var vm = this;
 	    vm.calendarConfig = calendarConfig;
