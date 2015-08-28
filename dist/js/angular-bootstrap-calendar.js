@@ -481,7 +481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	angular
 	  .module('mwl.calendar')
-	  .controller('MwlCalendarMonthCtrl', ["$scope", "moment", "calendarHelper", "calendarConfig", function($scope, moment, calendarHelper, calendarConfig) {
+	  .controller('MwlCalendarMonthCtrl', ["$scope", "$filter", "moment", "calendarDate", "calendarHelper", "calendarConfig", function($scope, $filter, moment, calendarDate, calendarHelper, calendarConfig) {
 
 	    var vm = this;
 	    vm.calendarConfig = calendarConfig;
@@ -525,6 +525,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.openRowIndex = Math.floor(dayIndex / 7);
 	      }
 
+	    };
+
+	    vm.getHTMLListEvents = function() {
+	      var events = vm.events.map(function(e) {
+	        var ret = $filter('calendarDate')(e.startsAt, 'time', true);
+	        if (calendarConfig.displayEventEndTimes && e.endsAt) {
+	          ret += ' - ' + $filter('calendarDate')(e.endsAt, 'time', true);
+	        }
+	        ret += ' - ' + e.title;
+	        return ret;
+	      });
+	      var ret = '';
+	      if (events) {
+	        ret += '<ol>';
+	        for (var i in events) {
+	          if (events[i]) {
+	            ret += '<li>' + events[i] + '</li>';
+	          }
+	        }
+	        ret += '</ol>';
+	      }
+	      return ret;
 	    };
 
 	    vm.highlightEvent = function(event, shouldAddClass) {

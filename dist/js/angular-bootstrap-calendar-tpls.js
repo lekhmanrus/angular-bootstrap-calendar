@@ -121,7 +121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"events-list\" ng-show=\"day.events.length > 0\">\n  <a\n    ng-repeat=\"event in day.events | orderBy:'startsAt' track by event.$id\"\n    href=\"javascript:;\"\n    ng-click=\"vm.onEventClick({calendarEvent: event})\"\n    class=\"pull-left event\"\n    ng-class=\"'event-' + event.type + ' ' + event.cssClass\"\n    ng-mouseenter=\"vm.highlightEvent(event, true)\"\n    ng-mouseleave=\"vm.highlightEvent(event, false)\"\n    data-container=\"body\" data-html=\"true\"\n    data-title=\"{{ (event.startsAt | calendarDate:'time':true) + (vm.calendarConfig.displayEventEndTimes && event.endsAt ? ' - ' + (event.endsAt | calendarDate:'time':true) : '') + ' - ' + event.title }}\"\n    mwl-draggable=\"event.draggable === true\"\n    drop-data=\"{event: event}\">\n  </a>\n</div>\n";
+	module.exports = "<div class=\"events-list\" ng-show=\"day.events.length > 0\">\n  <a\n    ng-repeat=\"event in day.events | orderBy:'startsAt' track by event.$id\"\n    href=\"javascript:;\"\n    ng-click=\"vm.onEventClick({calendarEvent: event})\"\n    class=\"pull-left event\"\n    ng-class=\"'event-' + event.type + ' ' + event.cssClass\"\n    ng-mouseenter=\"vm.highlightEvent(event, true)\"\n    ng-mouseleave=\"vm.highlightEvent(event, false)\"\n    tooltip-append-to-body=\"true\"\n    tooltip-html-unsafe=\"{{ (event.startsAt | calendarDate:'time':true) + (vm.calendarConfig.displayEventEndTimes && event.endsAt ? ' - ' + (event.endsAt | calendarDate:'time':true) : '') + ' - ' + event.title }}\"\n    mwl-draggable=\"event.draggable === true\"\n    drop-data=\"{event: event}\">\n  </a>\n</div>";
 
 /***/ },
 /* 15 */
@@ -511,7 +511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	angular
 	  .module('mwl.calendar')
-	  .controller('MwlCalendarMonthCtrl', ["$scope", "moment", "calendarHelper", "calendarConfig", function($scope, moment, calendarHelper, calendarConfig) {
+	  .controller('MwlCalendarMonthCtrl', ["$scope", "$filter", "moment", "calendarDate", "calendarHelper", "calendarConfig", function($scope, $filter, moment, calendarDate, calendarHelper, calendarConfig) {
 
 	    var vm = this;
 	    vm.calendarConfig = calendarConfig;
@@ -555,6 +555,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	        vm.openRowIndex = Math.floor(dayIndex / 7);
 	      }
 
+	    };
+
+	    vm.getHTMLListEvents = function() {
+	      var events = vm.events.map(function(e) {
+	        var ret = $filter('calendarDate')(e.startsAt, 'time', true);
+	        if (calendarConfig.displayEventEndTimes && e.endsAt) {
+	          ret += ' - ' + $filter('calendarDate')(e.endsAt, 'time', true);
+	        }
+	        ret += ' - ' + e.title;
+	        return ret;
+	      });
+	      var ret = '';
+	      if (events) {
+	        ret += '<ol>';
+	        for (var i in events) {
+	          if (events[i]) {
+	            ret += '<li>' + events[i] + '</li>';
+	          }
+	        }
+	        ret += '</ol>';
+	      }
+	      return ret;
 	    };
 
 	    vm.highlightEvent = function(event, shouldAddClass) {
