@@ -37,6 +37,8 @@
       is-open="vm.openRowIndex === $index && vm.view[vm.openMonthIndex].events.length > 0"
       events="vm.view[vm.openMonthIndex].events"
       on-event-click="vm.onEventClick"
+      add-event-html="vm.addEventHtml"
+      on-add-event-click="vm.onAddEventClick"
       edit-event-html="vm.editEventHtml"
       on-edit-event-click="vm.onEditEventClick"
       delete-event-html="vm.deleteEventHtml"

@@ -31,6 +31,13 @@
 
   <ng-include src="vm.cellEventsTemplateUrl || 'calendarMonthCellEvents.html'"></ng-include>
 
+  <button class="btn btn-xs btn-default btn-calendar-add pull-right"
+          ng-if="vm.addEventHtml"
+          ng-bind-html="vm.$sce.trustAsHtml(vm.addEventHtml)"
+          ng-click="vm.onAddEventClick(day.date)">
+    +
+  </button>
+
   <div id="cal-week-box" ng-if="$first && rowHovered">
     Week {{ day.date.week() }}
   </div>
